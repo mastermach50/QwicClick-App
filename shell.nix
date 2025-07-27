@@ -1,12 +1,12 @@
-# shell.nix for JS Environment
+# shell.nix for QwicClick-App Environment
 {
   pkgs ? import <nixpkgs> { },
 }:
 
 pkgs.mkShell {
-  name = "JS";
+  name = "QwC";
   packages = with pkgs; [
     nodejs
-    pnpm
   ];
+  PORT = "3310";
 }
