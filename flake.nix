@@ -23,6 +23,7 @@
           mkdir -p $out/bin
           cat > $out/bin/qwic-click-app << EOF
           #!${pkgs.bash}/bin/bash
+          export PORT=${PORT}
           ${pkgs.nodejs}/bin/node build
           EOF
           chmod +x $out/bin/qwic-click-app
