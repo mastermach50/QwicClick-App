@@ -19,9 +19,9 @@
 
         inherit PORT;
 
-        buildInputs = with pkgs; [
-          nodejs
-        ];
+        buildPhase = ''
+          npm run build
+        '';
 
         installPhase = ''
           mkdir -p $out/bin
