@@ -19,6 +19,10 @@
 
         inherit PORT;
 
+        buildInputs = with pkgs; [
+          nodejs
+        ];
+
         installPhase = ''
           mkdir -p $out/bin
           cat > $out/bin/qwic-click-app << EOF
