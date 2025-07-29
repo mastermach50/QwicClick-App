@@ -30,8 +30,8 @@
           mkdir -p $out/lib/${pname}
 
           mv build $out/lib/${pname}/build
-          mv package.json $out/lib/${pname}/package.json
-          mv package-lock.json $out/lib/${pname}/package-lock.json
+          # mv package.json $out/lib/${pname}/package.json
+          # mv package-lock.json $out/lib/${pname}/package-lock.json
         '';
 
         installPhase = ''
