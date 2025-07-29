@@ -9,7 +9,7 @@
       PORT = "3310";
     in
     {
-      packages.${system}.default = pkgs.buildNpmPackage {
+      packages.${system}.default = pkgs.buildNpmPackage rec {
         pname = "qwic-click-app";
         version = "0.0.1";
         description = "The QwicClick Web App";
@@ -19,18 +19,23 @@
 
         inherit PORT;
 
+        nativeBuildInputs = with pkgs; [
+          makeWrapper
+        ];
+
         buildPhase = ''
           npm run build
+          
+          mkdir -p $out/bin
+          mkdir -p $out/lib/${pname}
+
+          mv build $out/lib/${pname}/build
+          mv package.json $out/lib/${pname}/package.json
+          mv package-lock.json $out/lib/${pname}/package-lock.json
         '';
 
         installPhase = ''
-          mkdir -p $out/bin
-          cat > $out/bin/qwic-click-app << EOF
-          #!${pkgs.bash}/bin/bash
-          export PORT=${PORT}
-          ${pkgs.nodejs}/bin/node build
-          EOF
-          chmod +x $out/bin/qwic-click-app
+          makeWrapper ${pkgs.nodejs}/bin/node $out/bin/${pname} --add-flags $out/lib/${pname}/build --set PORT ${PORT}
         '';
       };
 
