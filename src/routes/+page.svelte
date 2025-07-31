@@ -29,14 +29,16 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 12rem;
+        height: 14rem;
         box-sizing: border-box;
         .logo {
-            width: 210px;
-            height: auto;
+            width: auto;
+            height: 6rem;
         }
         .copyright {
             text-align: right;
+            margin: auto 0;
+            font-size:1.4rem; 
         }
     }
 
