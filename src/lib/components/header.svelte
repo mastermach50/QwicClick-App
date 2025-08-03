@@ -7,8 +7,8 @@
         <img src="/logo/logo-large.svg" alt="QwicClick Logo" />
     </div>
     <div class="right">
-        <Button variant="text" square="true" href="/auth?login">Login</Button>
-        <Button variant="filled" square="true" href="/auth?signup">Signup</Button>
+        <Button variant="text" square="true" href="/login">Login</Button>
+        <Button variant="filled" square="true" href="/signup">Signup</Button>
     </div>
 </div>
 
