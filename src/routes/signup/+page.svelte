@@ -94,7 +94,7 @@
         width: 50vw;
         height: 100vh;
 
-        background-image: url("LoginBackground.jpg");
+        background-image: url("/LoginBackground.jpg");
         background-size: cover;
     }
 
