@@ -38,8 +38,7 @@
         .copyright {
             text-align: right;
             margin: auto 0;
-            font-size:1.4rem; 
+            font-size: 1.4rem;
         }
     }
-
 </style>
