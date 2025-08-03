@@ -8,9 +8,7 @@
     </div>
     <div class="right">
         <Button variant="text" square="true" href="/auth?login">Login</Button>
-        <Button variant="filled" square="true" href="/auth?signup"
-            >Signup</Button
-        >
+        <Button variant="filled" square="true" href="/auth?signup">Signup</Button>
     </div>
 </div>
 
