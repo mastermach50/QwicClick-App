@@ -1,7 +1,8 @@
 <script>
     import { slide } from "svelte/transition";
     import { createEventDispatcher } from "svelte";
-    import { Button } from "m3-svelte";
+    import { Button, TextField} from "m3-svelte";
+    
 
     let login_field = { login_usn: "", login_pwd: "" },
         valid = false;
@@ -31,27 +32,27 @@
         <div class="formfield">
             <form class="login form" on:submit|preventDefault={checkFields}>
                 <h3>Login</h3>
-                <div>
+                <div id="login_usn_div">
                     <label for="login_usn">Username : </label><br />
-                    <input
+                    <TextField
                         id="login_usn"
                         type="text"
                         placeholder="Enter Username.. "
                         bind:value={login_field.login_usn}
                     /><br />
-                    <div class="error">{errors.login_usn}</div>
+                    <div class="error">{errors.login_usn}</div><br />
                 </div>
-                <div>
+                <div id="login_pwd_div">
                     <label for="login_pwd">Password : </label><br />
-                    <input
+                    <TextField
                         id="login_pwd"
                         type="password"
                         placeholder="Enter Password.. "
-                        bind:value={login_field.login_pwd}
+                        bind:value={login_field.login_pwd}    
                     /><br />
                     <div class="error">{errors.login_pwd}</div>
                 </div>
-                <div class="login_btn"><Button variant="filled">LOGIN</Button></div>
+                <div class="login_btn"><Button variant="filled" >LOGIN</Button></div>
                 <a href="/signup">New User? Click to SignUp</a>
             </form>
         </div>
@@ -143,20 +144,6 @@
 
         margin-bottom: 10px;
     }
-    input {
-        width: 300px;
-        height: 25px;
-
-        padding: 5px;
-
-        background: transparent;
-
-        border: 2px solid black;
-        border-radius: 10px;
-
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
 
     a {
         color: darkblue;
@@ -167,4 +154,5 @@
         text-align: center;
         margin-bottom: 1rem;
     }
+
 </style>

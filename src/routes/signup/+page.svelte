@@ -1,6 +1,6 @@
 <script>
     import { slide } from "svelte/transition";
-    import { Button } from "m3-svelte";
+    import { Button, TextField } from "m3-svelte";
     import "$lib/m3.css";
 
     let signup_field = { signup_usn: "", signup_eml: "", signup_pwd: "" },
@@ -38,29 +38,29 @@
             <form class="signup form" on:submit|preventDefault={checkFields}>
                 <h3>Sign Up</h3>
                 <label for="signup_usn">Username :</label><br />
-                <input
+                <TextField
                     id="signup_usn"
                     type="text"
                     placeholder="Choose Username.."
                     bind:value={signup_field.signup_usn}
                 /><br />
-                <div class="error">{errors.signup_usn}</div>
+                <div class="error">{errors.signup_usn}</div><br />
                 <label for="signup_email">Email :</label><br />
-                <input
+                <TextField
                     id="signup_email"
                     type="email"
                     placeholder="Enter Email.."
                     bind:value={signup_field.signup_eml}
                 /><br />
-                <div class="error">{errors.signup_eml}</div>
+                <div class="error">{errors.signup_eml}</div><br />
                 <label for="signup_pwd">Password :</label><br />
-                <input
+                <TextField
                     id="signup_pwd"
                     type="password"
                     placeholder="Choose Password.."
                     bind:value={signup_field.signup_pwd}
                 /><br />
-                <div class="error">{errors.signup_pwd}</div>
+                <div class="error">{errors.signup_pwd}</div><br />
                 <div class="signup_btn"><Button variant="filled">SIGN UP</Button></div>
                 <a href="/login">Already have an account? Click to Login</a>
             </form>
@@ -154,7 +154,7 @@
         margin-bottom: 10px;
     }
 
-    input {
+    /*input {
         width: 300px;
         height: 25px;
 
@@ -167,7 +167,7 @@
 
         margin-top: 10px;
         margin-bottom: 20px;
-    }
+    }*/
 
     a {
         color: darkblue;
