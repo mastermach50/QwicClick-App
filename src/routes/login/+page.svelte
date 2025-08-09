@@ -1,7 +1,7 @@
 <script>
     import { slide } from "svelte/transition";
     import { createEventDispatcher } from "svelte";
-    import { Button, TextField} from "m3-svelte";
+    import { Button, TextFieldOutlined} from "m3-svelte";
     
 
     let login_field = { login_usn: "", login_pwd: "" },
@@ -33,8 +33,8 @@
             <form class="login form" on:submit|preventDefault={checkFields}>
                 <h3>Login</h3>
                 <div id="login_usn_div">
-                    <label for="login_usn">Username : </label><br />
-                    <TextField
+                    
+                    <TextFieldOutlined
                         id="login_usn"
                         type="text"
                         placeholder="Enter Username.. "
@@ -43,8 +43,8 @@
                     <div class="error">{errors.login_usn}</div><br />
                 </div>
                 <div id="login_pwd_div">
-                    <label for="login_pwd">Password : </label><br />
-                    <TextField
+                    
+                    <TextFieldOutlined
                         id="login_pwd"
                         type="password"
                         placeholder="Enter Password.. "
@@ -131,12 +131,6 @@
         background: white;
     }
 
-    label {
-        font-size: 18px;
-        text-shadow: 0px 0px 0.3px black;
-        margin-top: 10px;
-        color: black;
-    }
     .error {
         color: red;
         font-size: 15px;
@@ -154,5 +148,33 @@
         text-align: center;
         margin-bottom: 1rem;
     }
+    :global(.m3-container.s-0BLyfdqucHde){
+        min-width: 20rem !important;
+        height: 3.5rem !important;
+        margin-bottom: 0.5rem;
+    }
+    /*Change input text color */
+    :global(.m3-container input[type="text"]) {
+        color: black;
+        
+    }
+    :global(.m3-container input[type="password"]) {
+        color: black;
+    }
+    
+    /*Change placeholder color */
+    :global(.m3-container input[type="text"]::placeholder) {
+        color: grey;
+    }
+    :global(.m3-container input[type="password"]::placeholder) {
+        color: grey; 
+    }
+
+    
+    
+
+
+
+
 
 </style>

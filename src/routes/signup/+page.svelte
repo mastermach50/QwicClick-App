@@ -1,6 +1,6 @@
 <script>
     import { slide } from "svelte/transition";
-    import { Button, TextField } from "m3-svelte";
+    import { Button, TextFieldOutlined } from "m3-svelte";
     import "$lib/m3.css";
 
     let signup_field = { signup_usn: "", signup_eml: "", signup_pwd: "" },
@@ -17,7 +17,7 @@
             errors.signup_usn = "";
         }
 
-        if (signup_field.signup_eml.includes("@")) {
+        if (!signup_field.signup_eml.includes("@")) {
             valid = false;
             errors.signup_eml = "Email must be valid";
         } else {
@@ -37,27 +37,26 @@
         <div class="formfield">
             <form class="signup form" on:submit|preventDefault={checkFields}>
                 <h3>Sign Up</h3>
-                <label for="signup_usn">Username :</label><br />
-                <TextField
+                
+                <TextFieldOutlined
                     id="signup_usn"
                     type="text"
-                    placeholder="Choose Username.."
+                    placeholder="Enter Username.."
                     bind:value={signup_field.signup_usn}
                 /><br />
                 <div class="error">{errors.signup_usn}</div><br />
-                <label for="signup_email">Email :</label><br />
-                <TextField
+                <TextFieldOutlined
                     id="signup_email"
                     type="email"
                     placeholder="Enter Email.."
                     bind:value={signup_field.signup_eml}
                 /><br />
                 <div class="error">{errors.signup_eml}</div><br />
-                <label for="signup_pwd">Password :</label><br />
-                <TextField
+                
+                <TextFieldOutlined
                     id="signup_pwd"
                     type="password"
-                    placeholder="Choose Password.."
+                    placeholder="Enter Password.."
                     bind:value={signup_field.signup_pwd}
                 /><br />
                 <div class="error">{errors.signup_pwd}</div><br />
@@ -140,12 +139,7 @@
         background: white;
     }
 
-    label {
-        font-size: 18px;
-        text-shadow: 0px 0px 0.3px black;
-        margin-top: 10px;
-        color: black;
-    }
+
     .error {
         color: red;
         font-size: 15px;
@@ -178,4 +172,30 @@
         text-align: center;
         margin-bottom: 1rem;
     }
+
+    /*Change input text color */
+    :global(.m3-container input[type="text"]) {
+        color: black;
+        
+    }
+    :global(.m3-container input[type="password"]) {
+        color: black;
+    }
+    :global(.m3-container input[type="email"]) {
+        color: black;
+    }
+    
+    /*Change placeholder color */
+    :global(.m3-container input[type="text"]::placeholder) {
+        color: grey;
+    }
+    :global(.m3-container input[type="password"]::placeholder) {
+        color: grey; 
+    }
+    :global(.m3-container input[type="email"]::placeholder) {
+        color: grey; 
+    }
+    
+
+    
 </style>
