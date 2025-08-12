@@ -37,7 +37,7 @@
                     <TextFieldOutlined
                         id="login_usn"
                         type="text"
-                        placeholder="Enter Username.. "
+                        label="Username"
                         bind:value={login_field.login_usn}
                     /><br />
                     <div class="error">{errors.login_usn}</div><br />
@@ -47,7 +47,7 @@
                     <TextFieldOutlined
                         id="login_pwd"
                         type="password"
-                        placeholder="Enter Password.. "
+                        label="Password"
                         bind:value={login_field.login_pwd}    
                     /><br />
                     <div class="error">{errors.login_pwd}</div>

@@ -41,14 +41,14 @@
                 <TextFieldOutlined
                     id="signup_usn"
                     type="text"
-                    placeholder="Enter Username.."
+                    label="Username"
                     bind:value={signup_field.signup_usn}
                 /><br />
                 <div class="error">{errors.signup_usn}</div><br />
                 <TextFieldOutlined
                     id="signup_email"
                     type="email"
-                    placeholder="Enter Email.."
+                    label="Email"
                     bind:value={signup_field.signup_eml}
                 /><br />
                 <div class="error">{errors.signup_eml}</div><br />
@@ -56,7 +56,7 @@
                 <TextFieldOutlined
                     id="signup_pwd"
                     type="password"
-                    placeholder="Enter Password.."
+                    label="Password"
                     bind:value={signup_field.signup_pwd}
                 /><br />
                 <div class="error">{errors.signup_pwd}</div><br />
@@ -79,6 +79,10 @@
 </main>
 
 <style>
+    :root {
+        --m3-util-background: #ffffff
+    }
+
     main {
         display: grid;
         grid-template-columns: 1fr 1fr;
