@@ -2,42 +2,44 @@
     import { slide } from "svelte/transition";
     import { createEventDispatcher } from "svelte";
     import { Button, TextFieldOutlined} from "m3-svelte";
+    import signup from "../signup/+page.svelte";
     
 
-    let login_field = { login_usn: "", login_pwd: "" },
-        valid = false;
+    let login_field = { login_usn: "", login_pwd: "" };
     let errors = { login_usn: "", login_pwd: "" };
+    let [error_usn, error_pwd] =[false, false];
 
     const checkFields = () => {
-        valid = true;
 
         if (login_field.login_usn.length < 6) {
-            valid = false;
+            error_usn = true;
             errors.login_usn = "Username must be at least 6 characters long !";
         } else {
             errors.login_usn = "";
         }
 
         if (login_field.login_pwd.length < 8) {
-            valid = false;
+            error_pwd = true;
             errors.login_pwd = "Password must be at least 8 characters long !";
         } else {
             errors.login_pwd = "";
         }
     };
+ 
 </script>
 
 <main>
     <div class="leftside">
         <div class="formfield">
             <form class="login form" on:submit|preventDefault={checkFields}>
-                <h3>Login</h3>
+                <h3 id="login_head">Login</h3>
                 <div id="login_usn_div">
                     
                     <TextFieldOutlined
                         id="login_usn"
                         type="text"
                         label="Username"
+                        error={error_usn}
                         bind:value={login_field.login_usn}
                     /><br />
                     <div class="error">{errors.login_usn}</div><br />
@@ -48,11 +50,12 @@
                         id="login_pwd"
                         type="password"
                         label="Password"
+                        error={error_pwd}
                         bind:value={login_field.login_pwd}    
                     /><br />
                     <div class="error">{errors.login_pwd}</div>
                 </div>
-                <div class="login_btn"><Button variant="filled" >LOGIN</Button></div>
+                <div class="login_btn"><Button variant="filled" square=True >LOGIN</Button></div>
                 <a href="/signup">New User? Click to SignUp</a>
             </form>
         </div>
@@ -77,6 +80,7 @@
         grid-template-columns: 1fr 1fr;
         margin: 0px auto;
     }
+    
 
     .leftside {
         display: flex;
@@ -156,22 +160,10 @@
     /*Change input text color */
     :global(.m3-container input[type="text"]) {
         color: black;
-        
     }
     :global(.m3-container input[type="password"]) {
         color: black;
     }
-    
-    /*Change placeholder color */
-    :global(.m3-container input[type="text"]::placeholder) {
-        color: grey;
-    }
-    :global(.m3-container input[type="password"]::placeholder) {
-        color: grey; 
-    }
-
-    
-    
 
 
 

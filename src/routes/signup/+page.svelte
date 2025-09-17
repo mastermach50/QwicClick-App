@@ -3,28 +3,28 @@
     import { Button, TextFieldOutlined } from "m3-svelte";
     import "$lib/m3.css";
 
-    let signup_field = { signup_usn: "", signup_eml: "", signup_pwd: "" },
-        valid = false;
+    let signup_field = { signup_usn: "", signup_eml: "", signup_pwd: "" };
     let errors = { signup_usn: "", signup_eml: "", signup_pwd: "" };
-
+    let error_usn = false, error_eml = false, error_pwd = false;
     const checkFields = () => {
-        valid = true;
 
         if (signup_field.signup_usn.length < 6) {
-            valid = false;
+           
+            error_usn = true;
             errors.signup_usn = "Username must be at least 6 characters long !";
         } else {
             errors.signup_usn = "";
         }
 
         if (!signup_field.signup_eml.includes("@")) {
-            valid = false;
+            
+            error_eml = true;
             errors.signup_eml = "Email must be valid";
         } else {
             errors.signup_eml = "";
         }
         if (signup_field.signup_pwd.length < 8) {
-            valid = false;
+            error_pwd = true;
             errors.signup_pwd = "Password must be at least 8 characters long !";
         } else {
             errors.login_pwd = "";
@@ -42,6 +42,8 @@
                     id="signup_usn"
                     type="text"
                     label="Username"
+                    helperText={errors.signup_usn}
+                    error={error_usn}
                     bind:value={signup_field.signup_usn}
                 /><br />
                 <div class="error">{errors.signup_usn}</div><br />
@@ -49,6 +51,7 @@
                     id="signup_email"
                     type="email"
                     label="Email"
+                    error={error_eml}
                     bind:value={signup_field.signup_eml}
                 /><br />
                 <div class="error">{errors.signup_eml}</div><br />
@@ -57,10 +60,11 @@
                     id="signup_pwd"
                     type="password"
                     label="Password"
+                    error={error_pwd}
                     bind:value={signup_field.signup_pwd}
                 /><br />
                 <div class="error">{errors.signup_pwd}</div><br />
-                <div class="signup_btn"><Button variant="filled">SIGN UP</Button></div>
+                <div class="signup_btn"><Button variant="filled" square="True">SIGN UP</Button></div>
                 <a href="/login">Already have an account? Click to Login</a>
             </form>
         </div>
@@ -189,16 +193,7 @@
         color: black;
     }
     
-    /*Change placeholder color */
-    :global(.m3-container input[type="text"]::placeholder) {
-        color: grey;
-    }
-    :global(.m3-container input[type="password"]::placeholder) {
-        color: grey; 
-    }
-    :global(.m3-container input[type="email"]::placeholder) {
-        color: grey; 
-    }
+
     
 
     
