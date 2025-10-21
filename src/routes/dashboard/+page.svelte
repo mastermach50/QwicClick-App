@@ -145,6 +145,11 @@
         }
     }
 
+    let logout = async () => {
+        document.cookie = "sessiontoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = "/login";
+    }
+
 </script>
 
 <Success message={successMessage} bind:this={successRef} />
@@ -153,8 +158,11 @@
 <main>
     <nav class="sidebar">
         <div class="userbox">
-            <svg id="avatar" width="80" height="80"></svg>
-            {username}
+            <svg id="avatar"></svg>
+            <div class="userdetails">
+                {username}
+                <button class="btn btn-error btn-xs" onclick={logout}>Logout</button>
+            </div>
         </div>
         <button class="btn btn-block btn-dash" onclick={panelRef.show}>+ New Link</button>
         {#each links as link}
