@@ -1,200 +1,99 @@
 <script>
-    import { slide } from "svelte/transition";
-    import { Button, TextFieldOutlined } from "m3-svelte";
-    import "$lib/m3.css";
+    import "$lib/daisy.css";
 
-    let signup_field = { signup_usn: "", signup_eml: "", signup_pwd: "" };
-    let errors = { signup_usn: "", signup_eml: "", signup_pwd: "" };
-    let error_usn = false, error_eml = false, error_pwd = false;
-    const checkFields = () => {
-
-        if (signup_field.signup_usn.length < 6) {
-           
-            error_usn = true;
-            errors.signup_usn = "Username must be at least 6 characters long !";
-        } else {
-            errors.signup_usn = "";
-        }
-
-        if (!signup_field.signup_eml.includes("@")) {
-            
-            error_eml = true;
-            errors.signup_eml = "Email must be valid";
-        } else {
-            errors.signup_eml = "";
-        }
-        if (signup_field.signup_pwd.length < 8) {
-            error_pwd = true;
-            errors.signup_pwd = "Password must be at least 8 characters long !";
-        } else {
-            errors.login_pwd = "";
-        }
-    };
+    let email = $state(null);
+    let password = $state(null);
 </script>
 
-<main>
-    <div class="leftside">
-        <div class="formfield">
-            <form class="signup form" on:submit|preventDefault={checkFields}>
-                <h3>Sign Up</h3>
-                
-                <TextFieldOutlined
-                    id="signup_usn"
+<div class="left">
+    <div class="box">
+        <h1>Signup</h1>
+        <div class="username">
+            <label class="input validator">
+                <img style="height: 1em; opacity: 0.5;" src="/svg/person.svg" alt="" />
+                <input
                     type="text"
-                    label="Username"
-                    helperText={errors.signup_usn}
-                    error={error_usn}
-                    bind:value={signup_field.signup_usn}
-                /><br />
-                <div class="error">{errors.signup_usn}</div><br />
-                <TextFieldOutlined
-                    id="signup_email"
-                    type="email"
-                    label="Email"
-                    error={error_eml}
-                    bind:value={signup_field.signup_eml}
-                /><br />
-                <div class="error">{errors.signup_eml}</div><br />
-                
-                <TextFieldOutlined
-                    id="signup_pwd"
+                    required
+                    placeholder="Username"
+                    pattern="[A-Za-z][A-Za-z0-9\-]*"
+                    minlength="3"
+                    maxlength="30"
+                />
+            </label>
+            <div class="validator-hint hidden">Must be 3 to 30 characters</div>
+        </div>
+        <div class="email">
+            <label class="input validator">
+                <img style="height: 1em; opacity: 0.5;" src="/svg/mail.svg" alt="" />
+                <input type="email" placeholder="Email" bind:value={email} required />
+            </label>
+            <div class="validator-hint hidden">Enter valid email address</div>
+        </div>
+        <div class="password">
+            <label class="input validator">
+                <img style="height: 1em; opacity: 0.5;" src="/svg/key.svg" alt="" />
+                <input
                     type="password"
-                    label="Password"
-                    error={error_pwd}
-                    bind:value={signup_field.signup_pwd}
-                /><br />
-                <div class="error">{errors.signup_pwd}</div><br />
-                <div class="signup_btn"><Button variant="filled" square="True">SIGN UP</Button></div>
-                <a href="/login">Already have an account? Click to Login</a>
-            </form>
+                    placeholder="Password"
+                    minlength="8"
+                    bind:value={password}
+                    required
+                />
+            </label>
+            <div class="validator-hint hidden">Must be more than 8 characters</div>
         </div>
+        <button class="btn btn-primary rounded-4xl" type="submit">Login</button>
+        <p>Already a user? <a href="/login">Login</a></p>
     </div>
-    <div class="rightside">
-        <div class="logo">
-            <img src="logo/logo-large.svg" alt="QwicClick Logo" />
-        </div>
-
-        <div class="slogans">
-            <em>"Shrink Smart.&nbsp; Track Smarter."</em><br />
-            <em>"Beyond Short Links — Real-Time Insights."</em><br />
-            <strong>powered by Qwic.Click</strong>
-        </div>
-    </div>
-</main>
+</div>
+<div class="right">
+    <img src="/logo/logo-large.svg" alt="">
+</div>
 
 <style>
-    :root {
-        --m3-util-background: #ffffff
-    }
-
-    main {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        margin: 0px auto;
-    }
-
-    .leftside {
+    .left {
+        width: 50vw;
+        height: 100vh;
+        background-image: url("/LoginBackground.jpg");
         display: flex;
         justify-content: center;
         align-items: center;
-
-        width: 50vw;
-        height: 100vh;
-
-        background-image: url("/LoginBackground.jpg");
-        background-size: cover;
     }
 
-    h3 {
-        text-align: center;
-        font-weight: bold;
-        color: black;
-        text-shadow: 1px 1px white;
+    .right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .right img {
+        height: 10vh;
+    }
+
+    .box {
+        height: 50vh;
+        width: 30vw;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    h1 {
+        font-weight: 900;
         font-size: 2rem;
     }
 
-    .rightside {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    p a {
+        text-decoration: underline;
+        color: var(--color-secondary);
     }
-
-    .slogans {
-        text-align: center;
-        font-size: 25px;
-
-        strong {
-            text-align: right;
-        }
-    }
-
-
-    .formfield {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        padding: 3rem;
-
-        border: 2px solid white;
-        border-radius: 5%;
-        box-shadow: 1px 2px 1px white;
-
-        width: 25vw;
-
-        background: white;
-    }
-
-
-    .error {
-        color: red;
-        font-size: 15px;
-        text-align: center;
-
-        margin-bottom: 10px;
-    }
-
-    /*input {
-        width: 300px;
-        height: 25px;
-
-        padding: 5px;
-
-        background: transparent;
-
-        border: 2px solid black;
-        border-radius: 10px;
-
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }*/
-
-    a {
-        color: darkblue;
-        text-decoration: none;
-    }
-
-    .signup_btn {
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-
-    /*Change input text color */
-    :global(.m3-container input[type="text"]) {
-        color: black;
-        
-    }
-    :global(.m3-container input[type="password"]) {
-        color: black;
-    }
-    :global(.m3-container input[type="email"]) {
-        color: black;
-    }
-    
-
-    
-
-    
 </style>

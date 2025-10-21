@@ -1,172 +1,106 @@
 <script>
-    import { slide } from "svelte/transition";
-    import { createEventDispatcher } from "svelte";
-    import { Button, TextFieldOutlined} from "m3-svelte";
-    import signup from "../signup/+page.svelte";
-    
+    import "$lib/daisy.css";
 
-    let login_field = { login_usn: "", login_pwd: "" };
-    let errors = { login_usn: "", login_pwd: "" };
-    let [error_usn, error_pwd] =[false, false];
+    let email = $state(null);
+    let password = $state(null);
 
-    const checkFields = () => {
-
-        if (login_field.login_usn.length < 6) {
-            error_usn = true;
-            errors.login_usn = "Username must be at least 6 characters long !";
-        } else {
-            errors.login_usn = "";
+    async function onSubmit(e) {
+        e.preventDefault();
+        console.log(email, password);
+        const response = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        });
+        if (response.status === 200) {
+            console.log(await response.json());
         }
-
-        if (login_field.login_pwd.length < 8) {
-            error_pwd = true;
-            errors.login_pwd = "Password must be at least 8 characters long !";
-        } else {
-            errors.login_pwd = "";
-        }
-    };
- 
+    }
 </script>
 
-<main>
-    <div class="leftside">
-        <div class="formfield">
-            <form class="login form" on:submit|preventDefault={checkFields}>
-                <h3 id="login_head">Login</h3>
-                <div id="login_usn_div">
-                    
-                    <TextFieldOutlined
-                        id="login_usn"
-                        type="text"
-                        label="Username"
-                        error={error_usn}
-                        bind:value={login_field.login_usn}
-                    /><br />
-                    <div class="error">{errors.login_usn}</div><br />
-                </div>
-                <div id="login_pwd_div">
-                    
-                    <TextFieldOutlined
-                        id="login_pwd"
-                        type="password"
-                        label="Password"
-                        error={error_pwd}
-                        bind:value={login_field.login_pwd}    
-                    /><br />
-                    <div class="error">{errors.login_pwd}</div>
-                </div>
-                <div class="login_btn"><Button variant="filled" square=True >LOGIN</Button></div>
-                <a href="/signup">New User? Click to SignUp</a>
-            </form>
+<div class="left">
+    <div class="box">
+        <h1>Login</h1>
+        <div class="email">
+            <label class="input validator">
+                <img style="height: 1em; opacity: 0.5;" src="/svg/mail.svg" alt="" />
+                <input type="email" placeholder="Email" bind:value={email} required />
+            </label>
+            <div class="validator-hint hidden">Enter valid email address</div>
         </div>
+        <div class="password">
+            <label class="input validator">
+                <img style="height: 1em; opacity: 0.5;" src="/svg/key.svg" alt="" />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    minlength="8"
+                    bind:value={password}
+                    required
+                />
+            </label>
+            <div class="validator-hint hidden">Must be more than 8 characters</div>
+        </div>
+        <button class="btn btn-primary rounded-4xl" type="submit" onclick={onSubmit}>Login</button>
+        <p>Not registered? <a href="/signup">Sign Up</a></p>
     </div>
-
-    <div class="rightside">
-        <div class="logo">
-            <img src="logo/logo-large.svg" alt="QwicClick Logo" />
-        </div>
-
-        <div class="slogans">
-            <em>"Shrink Smart.&nbsp; Track Smarter."</em><br />
-            <em>"Beyond Short Links — Real-Time Insights."</em><br />
-            <strong>powered by Qwic.Click</strong>
-        </div>
-    </div>
-</main>
+</div>
+<div class="right">
+    <img src="/logo/logo-large.svg" alt="">
+</div>
 
 <style>
-    main {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        margin: 0px auto;
-    }
-    
-
-    .leftside {
+    .left {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50vw;
+        height: 100vh;
+        background-image: url("/LoginBackground.jpg");
         display: flex;
         justify-content: center;
         align-items: center;
-
-        width: 50vw;
-        height: 100vh;
-
-        background-image: url("/LoginBackground.jpg");
-        background-size: cover;
     }
 
-    h3 {
-        text-align: center;
-        font-weight: bold;
-        color: black;
-        text-shadow: 1px 1px white;
+    .right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .right img {
+        height: 10vh;
+    }
+
+    .box {
+        height: 50vh;
+        width: 30vw;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    h1 {
+        font-weight: 900;
         font-size: 2rem;
     }
 
-    .rightside {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    p a {
+        text-decoration: underline;
+        color: var(--color-secondary);
     }
-
-    .slogans {
-        text-align: center;
-        font-size: 25px;
-
-        strong {
-            text-align: right;
-        }
-    }
-
-    .formfield {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        padding: 3rem;
-
-        border: 2px solid white;
-        border-radius: 5%;
-        box-shadow: 1px 2px 1px white;
-
-        width: 25vw;
-
-        background: white;
-    }
-
-    .error {
-        color: red;
-        font-size: 15px;
-        text-align: center;
-
-        margin-bottom: 10px;
-    }
-
-    a {
-        color: darkblue;
-        text-decoration: none;
-    }
-
-    .login_btn {
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    :global(.m3-container.s-0BLyfdqucHde){
-        min-width: 20rem !important;
-        height: 3.5rem !important;
-        margin-bottom: 0.5rem;
-    }
-    /*Change input text color */
-    :global(.m3-container input[type="text"]) {
-        color: black;
-    }
-    :global(.m3-container input[type="password"]) {
-        color: black;
-    }
-
-
-
-
-
 </style>
