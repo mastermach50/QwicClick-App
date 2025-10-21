@@ -10,7 +10,7 @@
             visible = true;
             const timer = setTimeout(() => {
                 visible = false;
-            }, 5000);
+            }, 3000);
             return () => clearTimeout(timer);
         }
     });

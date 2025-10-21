@@ -1,5 +1,5 @@
 <script>
-    import Error from "$lib/components/snackbars/error.svelte";
+    import Error from "$lib/components/alerts/error.svelte";
     import Email from "$lib/components/textfields/email.svelte";
     import Password from "$lib/components/textfields/password.svelte";
     import Username from "$lib/components/textfields/username.svelte";
@@ -36,8 +36,9 @@
     }
 </script>
 
+<Error message={errorMessage} bind:this={alertRef} />
 <div class="left">
-    <div class="box">
+    <form class="box">
         <h1>Signup</h1>
         <Username bind:value={username} />
         <Email bind:value={email} />
@@ -46,12 +47,11 @@
             >Signup</button
         >
         <p>Already a user? <a href="/login">Login</a></p>
-    </div>
+    </form>
 </div>
 <div class="right">
     <img src="/logo/logo-large.svg" alt="" />
 </div>
-<Error message={errorMessage} bind:this={alertRef} />
 
 <style>
     .left {

@@ -2,7 +2,7 @@
     import "$lib/daisy.css";
     import Email from "$lib/components/textfields/email.svelte";
     import Password from "$lib/components/textfields/password.svelte";
-    import Error from "$lib/components/snackbars/error.svelte";
+    import Error from "$lib/components/alerts/error.svelte";
 
     let email = $state(null);
     let password = $state(null);
@@ -36,19 +36,19 @@
     }
 </script>
 
+<Error message={errorMessage} bind:this={alertRef} />
 <div class="left">
-    <div class="box">
+    <form class="box">
         <h1>Login</h1>
         <Email bind:value={email} />
         <Password bind:value={password} />
         <button class="btn btn-primary rounded-4xl" type="submit" onclick={onSubmit}>Login</button>
         <p>Not registered? <a href="/signup">Sign Up</a></p>
-    </div>
+    </form>
 </div>
 <div class="right">
     <img src="/logo/logo-large.svg" alt="">
 </div>
-<Error message={errorMessage} bind:this={alertRef} />
 
 <style>
     .left {
