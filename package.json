@@ -20,6 +20,7 @@
 	},
 	"dependencies": {
 		"@tailwindcss/vite": "^4.1.15",
+		"chart.js": "^4.5.1",
 		"m3-svelte": "^5.0.0",
 		"melt": "^0.41.0",
 		"tailwindcss": "^4.1.15"

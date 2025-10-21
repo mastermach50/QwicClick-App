@@ -1,54 +1,57 @@
 <script>
+    import Error from "$lib/components/snackbars/error.svelte";
+    import Email from "$lib/components/textfields/email.svelte";
+    import Password from "$lib/components/textfields/password.svelte";
+    import Username from "$lib/components/textfields/username.svelte";
     import "$lib/daisy.css";
 
     let email = $state(null);
     let password = $state(null);
+    let username = $state(null);
+    let errorMessage = $state(null);
+    let alertRef;
+
+    async function onSubmit(e) {
+        e.preventDefault();
+        console.log(email, password);
+        const response = await fetch("https://qwic.click/api/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                username: username,
+            }),
+        });
+        if (response.status === 200) {
+            const data = await response.json();
+            window.location.href = "/login";
+        } else {
+            errorMessage = await response.text();
+            alertRef.show();
+            console.log("Error: " + errorMessage);
+        }
+    }
 </script>
 
 <div class="left">
     <div class="box">
         <h1>Signup</h1>
-        <div class="username">
-            <label class="input validator">
-                <img style="height: 1em; opacity: 0.5;" src="/svg/person.svg" alt="" />
-                <input
-                    type="text"
-                    required
-                    placeholder="Username"
-                    pattern="[A-Za-z][A-Za-z0-9\-]*"
-                    minlength="3"
-                    maxlength="30"
-                />
-            </label>
-            <div class="validator-hint hidden">Must be 3 to 30 characters</div>
-        </div>
-        <div class="email">
-            <label class="input validator">
-                <img style="height: 1em; opacity: 0.5;" src="/svg/mail.svg" alt="" />
-                <input type="email" placeholder="Email" bind:value={email} required />
-            </label>
-            <div class="validator-hint hidden">Enter valid email address</div>
-        </div>
-        <div class="password">
-            <label class="input validator">
-                <img style="height: 1em; opacity: 0.5;" src="/svg/key.svg" alt="" />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    minlength="8"
-                    bind:value={password}
-                    required
-                />
-            </label>
-            <div class="validator-hint hidden">Must be more than 8 characters</div>
-        </div>
-        <button class="btn btn-primary rounded-4xl" type="submit">Login</button>
+        <Username bind:value={username} />
+        <Email bind:value={email} />
+        <Password bind:value={password} />
+        <button class="btn btn-primary rounded-4xl" type="submit" onclick={onSubmit}
+            >Signup</button
+        >
         <p>Already a user? <a href="/login">Login</a></p>
     </div>
 </div>
 <div class="right">
-    <img src="/logo/logo-large.svg" alt="">
+    <img src="/logo/logo-large.svg" alt="" />
 </div>
+<Error message={errorMessage} bind:this={alertRef} />
 
 <style>
     .left {

@@ -1,13 +1,18 @@
 <script>
     import "$lib/daisy.css";
+    import Email from "$lib/components/textfields/email.svelte";
+    import Password from "$lib/components/textfields/password.svelte";
+    import Error from "$lib/components/snackbars/error.svelte";
 
     let email = $state(null);
     let password = $state(null);
+    let errorMessage = $state(null);
+    let alertRef;
 
     async function onSubmit(e) {
         e.preventDefault();
         console.log(email, password);
-        const response = await fetch("/api/login", {
+        const response = await fetch("https://qwic.click/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -18,7 +23,15 @@
             }),
         });
         if (response.status === 200) {
-            console.log(await response.json());
+            const data = await response.json()
+            const sessiontoken = data.sessiontoken;
+            console.log(sessiontoken);
+            document.cookie = "sessiontoken=" + sessiontoken;
+            window.location.href = "/dashboard";
+        } else {
+            errorMessage = await response.text();
+            alertRef.show();
+            console.log("Error: " + errorMessage);
         }
     }
 </script>
@@ -26,26 +39,8 @@
 <div class="left">
     <div class="box">
         <h1>Login</h1>
-        <div class="email">
-            <label class="input validator">
-                <img style="height: 1em; opacity: 0.5;" src="/svg/mail.svg" alt="" />
-                <input type="email" placeholder="Email" bind:value={email} required />
-            </label>
-            <div class="validator-hint hidden">Enter valid email address</div>
-        </div>
-        <div class="password">
-            <label class="input validator">
-                <img style="height: 1em; opacity: 0.5;" src="/svg/key.svg" alt="" />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    minlength="8"
-                    bind:value={password}
-                    required
-                />
-            </label>
-            <div class="validator-hint hidden">Must be more than 8 characters</div>
-        </div>
+        <Email bind:value={email} />
+        <Password bind:value={password} />
         <button class="btn btn-primary rounded-4xl" type="submit" onclick={onSubmit}>Login</button>
         <p>Not registered? <a href="/signup">Sign Up</a></p>
     </div>
@@ -53,6 +48,7 @@
 <div class="right">
     <img src="/logo/logo-large.svg" alt="">
 </div>
+<Error message={errorMessage} bind:this={alertRef} />
 
 <style>
     .left {
