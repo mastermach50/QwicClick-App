@@ -280,7 +280,7 @@
                         <div class="stat-desc">100% more than last week</div>
                     </div>
                 </div>
-                <canvas id="count-chart" bind:this={chartRef}></canvas>
+                <canvas id="count-chart" bind:this={chartRef} height="100rem"></canvas>
             </div>
         {/if}
     </div>
@@ -358,5 +358,6 @@
         .stat {
             background-color: var(--color-base-100);
         }
+
     }
 </style>
