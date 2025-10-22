@@ -11,7 +11,7 @@
     {
       packages.${system}.default = pkgs.buildNpmPackage rec {
         pname = "qwic-click-app";
-        version = "0.0.1";
+        version = "0.1.0";
         description = "The QwicClick Web App";
 
         src = ./.;

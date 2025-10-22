@@ -2,12 +2,10 @@
     import "$lib/daisy.css";
     import { onMount } from "svelte";
     // import jdenticon from "jdenticon/standalone";
-    import { Chart, registerables } from "chart.js";
+    // import { Chart, registerables } from "chart.js";
     import Success from "$lib/components/alerts/success.svelte";
     import Error from "$lib/components/alerts/error.svelte";
     import Panel from "$lib/components/panel.svelte";
-
-    Chart.register(...registerables);
 
     let sessiontoken = null;
     let username = $state(null);
@@ -68,7 +66,7 @@
         }
 
         // Create the chart
-        chart = new Chart(chartRef, {
+        chart = new window.Chart(chartRef, {
             type: "line",
             data: {
                 labels: days,
@@ -94,6 +92,8 @@
     });
 
     onMount(async () => {
+        // window.Chart.register(...window.registerables);
+
         // Get session token from cookie
         sessiontoken = document.cookie.split("sessiontoken=")[1];
         console.log(sessiontoken);
