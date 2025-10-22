@@ -15,7 +15,7 @@
         description = "The QwicClick Web App";
 
         src = ./.;
-        npmDepsHash = "sha256-kIGY7F8M5qwuse7NF7nP8Xl8bFlCuD0tBlF5OKHYyJ4=";
+        npmDepsHash = "sha256-3IWHSAjYzf+OFlOfWmntTk8YsfpqM4+RM3VZ4GHjDI8=";
         # npmDepsHash = pkgs.lib.fakeHash;
 
         inherit PORT;

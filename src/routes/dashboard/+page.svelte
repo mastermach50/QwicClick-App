@@ -1,7 +1,7 @@
 <script>
     import "$lib/daisy.css"
     import { onMount } from "svelte";
-    import jdenticon from "jdenticon/standalone";
+    // import jdenticon from "jdenticon/standalone";
     import Success from "$lib/components/alerts/success.svelte";
     import Error from "$lib/components/alerts/error.svelte";
     import Panel from "$lib/components/panel.svelte";
@@ -22,7 +22,7 @@
 
     onMount(async () => {
         // Get session token from cookie
-        sessiontoken = document.cookie.split("=")[1];
+        sessiontoken = document.cookie.split("sessiontoken=")[1];
         console.log(sessiontoken);
 
         // Fetch user details
